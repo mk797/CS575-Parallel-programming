@@ -214,32 +214,14 @@ void Wolf()
         {
             NextNumWolves = 0;   
         }
-        if(NowNumRabbits < 2)
+        else if(NowNumRabbits > NowNumWolves)
         {
-            if(NowNumWolves =0)
-                NowNumWolves = 1;
-            NowNumRabbits --;
-        }
-        else if(NowNumRabbits < 3)
-        {
-            NowNumWolves ++;
-            NowNumRabbits --;
-        }
-        else if(NowNumRabbits < 5)
-        {
-            NowNumWolves +=2;
-            NowNumRabbits -=2;
-
-        }
-        else if(NowNumRabbits < 7)
-        {
-            NowNumWolves += 3;
-            NowNumRabbits -=3;
+            NowNumWolves++;
         }
         else
         {
-            NowNumWolves += 2;
-            NowNumRabbits -=4;
+            NowNumWolves--;
+
         }
     
 
@@ -265,8 +247,8 @@ NowNumRabbits = 1;
 NowHeight =  5.;
 NowNumWolves = 1;
 
-    omp_set_num_threads( 3 );   // or 4
-    InitBarrier( 3 );       // or 4
+    omp_set_num_threads( 4 );   // or 4
+    InitBarrier( 4 );       // or 4
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
@@ -288,10 +270,10 @@ NowNumWolves = 1;
             Watcher( );
         }
 
-        // #pragma omp section
-        // {
-        //     Wolf( );
-        // }
+        #pragma omp section
+        {
+            Wolf( );
+        }
 
 
         
