@@ -24,6 +24,9 @@ float nextHeight;
 float tempFactor;
 float precipFactor;
 
+int NextNumWolves;
+int NowNumWolves;
+
 
 const float RYEGRASS_GROWS_PER_MONTH =      20.0;
 const float ONE_RABBITS_EATS_PER_MONTH =     1.0;
@@ -200,7 +203,56 @@ void Watcher()
 }
 
 
+void Wolf()
+{
+    while( NowYear < 2029 )
+    {
+   
+        NextNumWolves = NowNumWolves;
 
+        if(NowNumRabbits =0)
+        {
+            NextNumWolves = 0;   
+        }
+        if(NowNumRabbits < 2)
+        {
+            if(NowNumWolves =0)
+                NowNumWolves = 1;
+            NowNumRabbits --;
+        }
+        else if(NowNumRabbits < 3)
+        {
+            NowNumWolves ++;
+            NowNumRabbits --;
+        }
+        else if(NowNumRabbits < 5)
+        {
+            NowNumWolves +=2;
+            NowNumRabbits -=2;
+
+        }
+        else if(NowNumRabbits < 7)
+        {
+            NowNumWolves += 3;
+            NowNumRabbits -=3;
+        }
+        else
+        {
+            NowNumWolves += 2;
+            NowNumRabbits -=4;
+        }
+    
+
+    WaitBarrier( );
+     NowNumWolves = NextNumWolves;
+
+    // DoneAssigning barrier:
+    WaitBarrier( ); 
+ 
+	WaitBarrier();
+
+    }
+}
 
 
 
@@ -211,9 +263,10 @@ NowMonth =    0;
 NowYear  = 2023;
 NowNumRabbits = 1;
 NowHeight =  5.;
+NowNumWolves = 1;
 
-    omp_set_num_threads( 3 );   // or 4
-    InitBarrier( 3 );       // or 4
+    omp_set_num_threads( 4 );   // or 4
+    InitBarrier( 4 );       // or 4
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
@@ -234,6 +287,12 @@ NowHeight =  5.;
         {
             Watcher( );
         }
+
+        #pragma omp section
+        {
+            Wolf( );
+        }
+
 
         
    
