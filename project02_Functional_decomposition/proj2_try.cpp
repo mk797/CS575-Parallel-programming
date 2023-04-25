@@ -265,8 +265,8 @@ NowNumRabbits = 1;
 NowHeight =  5.;
 NowNumWolves = 1;
 
-    omp_set_num_threads( 4 );   // or 4
-    InitBarrier( 4 );       // or 4
+    omp_set_num_threads( 3 );   // or 4
+    InitBarrier( 3 );       // or 4
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
@@ -288,10 +288,10 @@ NowNumWolves = 1;
             Watcher( );
         }
 
-        #pragma omp section
-        {
-            Wolf( );
-        }
+        // #pragma omp section
+        // {
+        //     Wolf( );
+        // }
 
 
         
