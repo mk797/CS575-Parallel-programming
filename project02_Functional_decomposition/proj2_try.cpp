@@ -216,11 +216,11 @@ void Wolf()
         }
         else if(NowNumRabbits > NowNumWolves)
         {
-            NowNumWolves++;
+            NextNumWolves++;
         }
         else
         {
-            NowNumWolves--;
+            NextNumWolves--;
 
         }
     
