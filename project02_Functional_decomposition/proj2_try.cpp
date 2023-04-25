@@ -252,7 +252,7 @@ NowNumWolves = 1;
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
-    fprintf(stderr, "rabbits,height, prec, temp, month, year\n");
+    fprintf(stderr, "rabbits,wolves,height, prec, temp\n");
      #pragma omp parallel sections
     {
         #pragma omp section
