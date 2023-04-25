@@ -210,7 +210,7 @@ void Wolf()
    
         NextNumWolves = NowNumWolves;
 
-        if(NowNumRabbits =0)
+        if(NowNumRabbits ==0)
         {
             NextNumWolves = 0;   
         }
@@ -224,7 +224,7 @@ void Wolf()
 
         }
     
-
+//printf("Now rabbits: %d Now wolves: %d next wolves:%d \n", NowNumRabbits,NowNumWolves, NextNumWolves);
     WaitBarrier( );
      NowNumWolves = NextNumWolves;
 
