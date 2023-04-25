@@ -186,7 +186,7 @@ void Watcher()
 
     WaitBarrier();
   
- fprintf(stderr, "%d,%lf,%lf,%lf\n", NowNumRabbits,2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
+ fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
  // fprintf(stderr, "%d,%lf,%lf,%lf \n",NowNumRabbits, NowHeight, NowPrecip, NowTemp );
     // fprintf(stderr, "\n\n");
     //  fprintf(stderr, "%d,%d\n", NowMonth, NowYear);
