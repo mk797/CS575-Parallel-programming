@@ -192,7 +192,7 @@ void Watcher()
     //  fprintf(stderr, "%d,%d\n", NowMonth, NowYear);
 
       NowMonth++;
-    if(NowMonth==11)
+    if(NowMonth==12)
     {
         NowMonth=0;
         NowYear++;
@@ -217,6 +217,7 @@ void Wolf()
         else if(NowNumRabbits > NowNumWolves)
         {
             NextNumWolves++;
+	    NowNumRabbits--;
         }
         else
         {
