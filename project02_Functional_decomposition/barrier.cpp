@@ -154,15 +154,15 @@ void RyeGrass()
     nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
  
     if( nextHeight < 0. ) nextHeight = 0.;
-   #pragma omp barrier;
+   #pragma omp barrier
     NowHeight = nextHeight;
 
     // DoneAssigning barrier:
-    #pragma omp barrier; 
+    #pragma omp barrier
   //  fprintf(stderr, "%lf,", NowHeight );
 
     // DonePrinting barrier:
-    #pragma omp barrier;
+    #pragma omp barrier
     }
 
 }
@@ -182,11 +182,11 @@ void Watcher()
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
 
-    #pragma omp barrier;
+    #pragma omp barrier
     NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
     NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
 
-    #pragma omp barrier;
+    #pragma omp barrier
   
  fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
  // fprintf(stderr, "%d,%lf,%lf,%lf \n",NowNumRabbits, NowHeight, NowPrecip, NowTemp );
@@ -199,7 +199,7 @@ void Watcher()
         NowMonth=0;
         NowYear++;
     }
-    #pragma omp barrier;
+    #pragma omp barrier
     }
 
 }
@@ -228,13 +228,13 @@ void Wolf()
         }
     
 //printf("Now rabbits: %d Now wolves: %d next wolves:%d \n", NowNumRabbits,NowNumWolves, NextNumWolves);
-    #pragma omp barrier;
+    #pragma omp barrier
      NowNumWolves = NextNumWolves;
 
     // DoneAssigning barrier:
-    #pragma omp barrier;
+    #pragma omp barrier
  
-	#pragma omp barrier;
+	#pragma omp barrier
 
     }
 }
