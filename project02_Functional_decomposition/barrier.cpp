@@ -115,12 +115,12 @@ void Rabbits()
     if( nextNumRabbits < 0 )
         nextNumRabbits = 0;
 
-   #pragma omp barrier;
+   #pragma omp barrier
     
      NowNumRabbits = nextNumRabbits;
 
     // DoneAssigning barrier:
-    #pragma omp barrier;
+    #pragma omp barrier
     
 //    fprintf(stderr, "%d,", NowNumRabbits );
 
@@ -130,7 +130,7 @@ void Rabbits()
     // {
     //     NowMonth=0;
     //     NowYear++;
-	#pragma omp barrier;
+	#pragma omp barrier
     }
     
 
