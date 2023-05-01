@@ -60,6 +60,12 @@ float Sqr( float x )
 
 void seq()
 {
+NowMonth =    0;
+NowYear  = 2023;
+NowNumRabbits = 1;
+NowHeight =  5.;
+NowNumWolves = 1;
+
     while(NowYear < 2029)
     {
 
@@ -163,11 +169,7 @@ void seq()
 int main()
 {
 
-NowMonth =    0;
-NowYear  = 2023;
-NowNumRabbits = 1;
-NowHeight =  5.;
-NowNumWolves = 1;
+
 
     
     
