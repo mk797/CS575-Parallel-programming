@@ -113,7 +113,7 @@ void Rabbits()
 
     if( nextNumRabbits < 0 )
         nextNumRabbits = 0;
-    fprintf(stderr, "first barrier rabbit");
+
     WaitBarrier( );
      NowNumRabbits = nextNumRabbits;
 
@@ -152,8 +152,6 @@ void RyeGrass()
     nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
  
     if( nextHeight < 0. ) nextHeight = 0.;
-        fprintf(stderr, "first barrier grass");
-
     WaitBarrier( );
     NowHeight = nextHeight;
 
@@ -181,7 +179,6 @@ void Watcher()
         NowPrecip = 0.;
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
-    fprintf(stderr, "first barrier watcher");
 
     WaitBarrier();
     NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
@@ -227,8 +224,7 @@ void Wolf()
             NextNumWolves--;
 
         }
-        fprintf(stderr, "first barrier wolves");
-
+    
 //printf("Now rabbits: %d Now wolves: %d next wolves:%d \n", NowNumRabbits,NowNumWolves, NextNumWolves);
     WaitBarrier( );
      NowNumWolves = NextNumWolves;
@@ -247,12 +243,12 @@ int main()
 {
 
 NowMonth =    0;
-NowYear  = 2028;
+NowYear  = 2023;
 NowNumRabbits = 1;
 NowHeight =  5.;
 NowNumWolves = 1;
 
-    omp_set_num_threads( 1 );   // or 4
+    omp_set_num_threads( 4 );   // or 4
     InitBarrier( 4 );       // or 4
     
     // compute a temporary next-value for this quantity
