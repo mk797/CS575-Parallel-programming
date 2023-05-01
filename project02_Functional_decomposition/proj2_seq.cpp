@@ -63,56 +63,81 @@ void seq()
     while(NowYear < 2029)
     {
 
+    
+// watcher first
+
     float ang = (  30.*(float)NowMonth + 15.  ) * ( M_PI / 180. );
     float temp = AVG_TEMP - AMP_TEMP * cos( ang );
+   
     float precip = AVG_PRECIP_PER_MONTH + AMP_PRECIP_PER_MONTH * sin( ang );
    
     if( NowPrecip < 0. )
         NowPrecip = 0.;
-
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
 
 
+
+// watcher second
+
     NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
     NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
 
-    //grass
-    NowHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
-    NowHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
-    if( NowHeight < 0. ) NowHeight = 0.;
 
 
-    //rabbits
-    int carryingCapacity = (int)( NowHeight );
-    if( NowNumRabbits < carryingCapacity )
-        NowNumRabbits++;
-    else
-        if( NowNumRabbits > carryingCapacity )
-                NowNumRabbits--;
 
-    if( NowNumRabbits < 0 )
-        NowNumRabbits = 0;
+//grass first
+    nextHeight = NowHeight;
+    nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
+    nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
+ 
+    if( nextHeight < 0. ) nextHeight = 0.;
+
+    // grass second
+
+      NowHeight = nextHeight;
 
    
-    //wolves 
-     if(NowNumRabbits ==0)
+
+
+
+    //rabbit first
+    nextNumRabbits = NowNumRabbits;
+    int carryingCapacity = (int)( NowHeight );
+    if( nextNumRabbits < carryingCapacity )
+        nextNumRabbits++;
+    else
+        if( nextNumRabbits > carryingCapacity )
+                nextNumRabbits--;
+
+    if( nextNumRabbits < 0 )
+        nextNumRabbits = 0;
+
+    //rabbits second
+    NowNumRabbits = nextNumRabbits;
+
+    //wolves first
+
+     NextNumWolves = NowNumWolves;
+
+        if(NowNumRabbits ==0)
         {
-            NowNumWolves = 0;   
+            NextNumWolves = 0;   
         }
         else if(NowNumRabbits > NowNumWolves)
         {
-            NowNumWolves++;
-	        NowNumRabbits--;
+            NextNumWolves++;
+	        nextNumRabbits--;
         }
         else
         {
-            NowNumWolves--;
+            NextNumWolves--;
 
         }
+    
 
-
-
+    // wolves second
+     NowNumWolves = NextNumWolves;
 
   
  fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
