@@ -78,41 +78,36 @@ void seq()
     NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
 
     //grass
-    nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
-    nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
-    if( nextHeight < 0. ) nextHeight = 0.;
+    NowHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
+    NowHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
+    if( NowHeight < 0. ) NowHeight = 0.;
 
 
     //rabbits
     int carryingCapacity = (int)( NowHeight );
-    if( nextNumRabbits < carryingCapacity )
-        nextNumRabbits++;
+    if( NowNumRabbits < carryingCapacity )
+        NowNumRabbits++;
     else
-        if( nextNumRabbits > carryingCapacity )
-                nextNumRabbits--;
+        if( NowNumRabbits > carryingCapacity )
+                NowNumRabbits--;
 
-    if( nextNumRabbits < 0 )
-        nextNumRabbits = 0;
+    if( NowNumRabbits < 0 )
+        NowNumRabbits = 0;
 
-    
- 
-    
-
-    NowHeight = nextHeight;
-
+   
     //wolves 
      if(NowNumRabbits ==0)
         {
-            NextNumWolves = 0;   
+            NowNumWolves = 0;   
         }
         else if(NowNumRabbits > NowNumWolves)
         {
-            NextNumWolves++;
-	        nextNumRabbits--;
+            NowNumWolves++;
+	        NowNumRabbits--;
         }
         else
         {
-            NextNumWolves--;
+            NowNumWolves--;
 
         }
 
