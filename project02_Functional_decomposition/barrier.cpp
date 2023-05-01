@@ -245,12 +245,12 @@ int main()
 {
 
 NowMonth =    0;
-NowYear  = 2028;
+NowYear  = 2023;
 NowNumRabbits = 1;
 NowHeight =  5.;
 NowNumWolves = 1;
 
-    omp_set_num_threads( 1 );   // or 4
+    omp_set_num_threads( 4 );   // or 4
     InitBarrier( 4 );       // or 4
     
     // compute a temporary next-value for this quantity
