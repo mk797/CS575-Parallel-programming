@@ -263,10 +263,10 @@ NowNumWolves = 1;
             Watcher( );
         }
 
-        // #pragma omp section
-        // {
-        //     Wolf( );
-        // }
+        #pragma omp section
+        {
+            Wolf( );
+        }
 
 
         
