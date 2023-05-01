@@ -120,14 +120,7 @@ void Rabbits()
     // DoneAssigning barrier:
     WaitBarrier( ); 
     
-//    fprintf(stderr, "%d,", NowNumRabbits );
 
-    // DonePrinting barrier:
-    // NowMonth++;
-    // if(NowMonth==11)
-    // {
-    //     NowMonth=0;
-    //     NowYear++;
 	WaitBarrier();
     }
     
@@ -150,14 +143,13 @@ void RyeGrass()
     nextHeight = NowHeight;
     nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
     nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
- 
     if( nextHeight < 0. ) nextHeight = 0.;
+
     WaitBarrier( );
     NowHeight = nextHeight;
 
     // DoneAssigning barrier:
     WaitBarrier( ); 
-  //  fprintf(stderr, "%lf,", NowHeight );
 
     // DonePrinting barrier:
     WaitBarrier( ); 
@@ -170,6 +162,23 @@ void Watcher()
 {
     while(NowYear < 2029)
     {
+    
+
+    WaitBarrier();
+    
+
+    WaitBarrier();
+  
+ fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
+ 
+
+    NowMonth++;
+    if(NowMonth==12)
+    {
+        NowMonth=0;
+        NowYear++;
+    }
+
     float ang = (  30.*(float)NowMonth + 15.  ) * ( M_PI / 180. );
     float temp = AVG_TEMP - AMP_TEMP * cos( ang );
    
@@ -179,24 +188,8 @@ void Watcher()
         NowPrecip = 0.;
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
-
-    WaitBarrier();
     NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
     NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
-
-    WaitBarrier();
-  
- fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
- // fprintf(stderr, "%d,%lf,%lf,%lf \n",NowNumRabbits, NowHeight, NowPrecip, NowTemp );
-    // fprintf(stderr, "\n\n");
-    //  fprintf(stderr, "%d,%d\n", NowMonth, NowYear);
-
-      NowMonth++;
-    if(NowMonth==12)
-    {
-        NowMonth=0;
-        NowYear++;
-    }
     WaitBarrier();
     }
 
@@ -225,7 +218,6 @@ void Wolf()
 
         }
     
-//printf("Now rabbits: %d Now wolves: %d next wolves:%d \n", NowNumRabbits,NowNumWolves, NextNumWolves);
     WaitBarrier( );
      NowNumWolves = NextNumWolves;
 
