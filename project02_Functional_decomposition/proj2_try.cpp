@@ -26,6 +26,8 @@ float precipFactor;
 
 int NextNumWolves;
 int NowNumWolves;
+float randValue1;
+float randValue2;
 
 
 const float RYEGRASS_GROWS_PER_MONTH =      20.0;
@@ -168,7 +170,7 @@ void Watcher()
     
     WaitBarrier();
   
- fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
+ fprintf(stderr, "%lf,%lf,%d,%d,%lf,%lf,%lf\n", randValue1,randValue2, NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
  
 
     NowMonth++;
@@ -187,8 +189,10 @@ void Watcher()
         NowPrecip = 0.;
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
-    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
-    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+    randValue1 = Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
+    NowTemp = temp + randValue1;
+    randValue2 = Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+    NowPrecip = precip + randValue2;
 
     WaitBarrier();
     
@@ -246,7 +250,7 @@ NowNumWolves = 1;
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
-    fprintf(stderr, "rabbits,wolves,height, prec, temp\n");
+    fprintf(stderr, "Rand1, Rand2, rabbits,wolves,height, prec, temp\n");
      #pragma omp parallel sections
     {
         #pragma omp section
