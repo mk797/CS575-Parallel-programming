@@ -166,7 +166,6 @@ void Watcher()
 
     WaitBarrier();
     
-
     WaitBarrier();
   
  fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
@@ -190,7 +189,9 @@ void Watcher()
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
     NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
     NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+
     WaitBarrier();
+    
     }
 
 }
