@@ -1,4 +1,3 @@
-#
 #include <stdlib.h>
 #include<stdio.h>
 #include <omp.h>
@@ -84,10 +83,7 @@ NowNumWolves = 1;
 
 
 
-// watcher second
 
-    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
-    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
 
 
 
@@ -99,9 +95,7 @@ NowNumWolves = 1;
  
     if( nextHeight < 0. ) nextHeight = 0.;
 
-    // grass second
-
-      NowHeight = nextHeight;
+    
 
    
 
@@ -119,8 +113,7 @@ NowNumWolves = 1;
     if( nextNumRabbits < 0 )
         nextNumRabbits = 0;
 
-    //rabbits second
-    NowNumRabbits = nextNumRabbits;
+    
 
     //wolves first
 
@@ -142,15 +135,24 @@ NowNumWolves = 1;
         }
     
 
+    // watcher second
+
+    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
+    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+
+    // grass second
+
+      NowHeight = nextHeight;
+
+      //rabbits second
+    NowNumRabbits = nextNumRabbits;
+
     // wolves second
      NowNumWolves = NextNumWolves;
 
   
  fprintf(stderr, "%d,%d,%lf,%lf,%lf\n", NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
- // fprintf(stderr, "%d,%lf,%lf,%lf \n",NowNumRabbits, NowHeight, NowPrecip, NowTemp );
-    // fprintf(stderr, "\n\n");
-    //  fprintf(stderr, "%d,%d\n", NowMonth, NowYear);
-
+ 
       NowMonth++;
     if(NowMonth==12)
     {
