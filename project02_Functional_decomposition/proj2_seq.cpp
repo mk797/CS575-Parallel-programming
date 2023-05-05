@@ -37,8 +37,7 @@ const float MIDPRECIP =             14.0;
 
 unsigned int seed = 0;
 
-float rand1;
-float rand2;
+
 
 float Ranf( unsigned int *seedp,  float low, float high )
 {
@@ -67,6 +66,8 @@ NowYear  = 2023;
 NowNumRabbits = 1;
 NowHeight =  5.;
 NowNumWolves = 1;
+float rand1;
+float rand2;
 
     while(NowYear < 2029)
     {
@@ -142,9 +143,10 @@ NowNumWolves = 1;
 
     // watcher second
 
-   
-    NowTemp = temp + Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
-    NowPrecip = precip + Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+   rand1 =  Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
+    NowTemp = temp +rand1;
+    rand2 = Ranf( &seed,  -RANDOM_PRECIP, RANDOM_PRECIP );
+    NowPrecip = precip + rand2;
 
       NowMonth++;
     if(NowMonth==12)
@@ -170,7 +172,7 @@ int main()
     
     // compute a temporary next-value for this quantity
     // based on the current state of the simulation:
-    fprintf(stderr, "rabbits,wolves,height, prec, temp\n");
+    fprintf(stderr, "rand1,rand2,rabbits,wolves,height, prec, temp\n");
     seq();
     
 
