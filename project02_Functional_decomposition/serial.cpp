@@ -43,9 +43,10 @@ int main() {
     NowHeight = 5.;
     NowNumWolves = 1;
 
-    fprintf(stderr, "Rand1, Rand2, rabbits,wolves,height, prec, temp\n");
+    //fprintf(stderr, "Rand1, Rand2, rabbits,wolves,height, prec, temp\n");
 
     while (NowYear < 2029) {
+        //compute rabbit next value
         int nextNumRabbits = NowNumRabbits;
         int carryingCapacity = (int)(NowHeight);
         if (nextNumRabbits < carryingCapacity)
@@ -55,9 +56,11 @@ int main() {
 
         if (nextNumRabbits < 0)
             nextNumRabbits = 0;
-
+        // rabbit assignign next to now
         NowNumRabbits = nextNumRabbits;
 
+
+        //compute height next value
         float nextHeight = NowHeight;
         float tempFactor = exp(-Sqr((NowTemp - MIDTEMP) / 10.));
         float precipFactor = exp(-Sqr((NowPrecip - MIDPRECIP) / 10.));
@@ -65,9 +68,11 @@ int main() {
         nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
         if (nextHeight < 0.) nextHeight = 0.;
 
+        //height assign next to now
         NowHeight = nextHeight;
-        
 
+
+        // compute next wolves value
         int NextNumWolves = NowNumWolves;
         if (NowNumRabbits == 0) {
             NextNumWolves = 0;
@@ -78,6 +83,7 @@ int main() {
             NextNumWolves--;
         }
 
+        // assign next wolves value to now
         NowNumWolves = NextNumWolves;
 
         float randValue1 = Ranf(&seed, -RANDOM_TEMP, RANDOM_TEMP);
