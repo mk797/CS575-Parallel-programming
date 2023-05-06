@@ -72,15 +72,7 @@ float rand2;
     while(NowYear < 2029)
     {
 
-//grass first
-    nextHeight = NowHeight;
-    nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
-    nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
- 
-    if( nextHeight < 0. ) nextHeight = 0.;
-
-
-    //rabbit first
+// compute rabbit next value 
     nextNumRabbits = NowNumRabbits;
     int carryingCapacity = (int)( NowHeight );
     if( nextNumRabbits < carryingCapacity )
@@ -93,11 +85,16 @@ float rand2;
         nextNumRabbits = 0;
 
     
+    //compute grass height next value 
+    nextHeight = NowHeight;
+    nextHeight += tempFactor * precipFactor * RYEGRASS_GROWS_PER_MONTH;
+    nextHeight -= (float)NowNumRabbits * ONE_RABBITS_EATS_PER_MONTH;
+ 
+    if( nextHeight < 0. ) nextHeight = 0.;
+    
 
-    //wolves first
-
+    //compute wolves next value
      NextNumWolves = NowNumWolves;
-
         if(NowNumRabbits ==0)
         {
             NextNumWolves = 0;   
@@ -115,21 +112,18 @@ float rand2;
     
 
 
-    // grass second
+    // assigning all next values to now values
 
       NowHeight = nextHeight;
 
-      //rabbits second
     NowNumRabbits = nextNumRabbits;
 
-    // wolves second
      NowNumWolves = NextNumWolves;
 
   
     fprintf(stderr, "%lf,%lf,%d,%d,%lf,%lf,%lf\n",rand1,rand2, NowNumRabbits,NowNumWolves, 2.54*NowHeight,NowPrecip,((5./9.)*(NowTemp-32))  );
  
     
-// watcher first
 
     float ang = (  30.*(float)NowMonth + 15.  ) * ( M_PI / 180. );
     float temp = AVG_TEMP - AMP_TEMP * cos( ang );
@@ -141,7 +135,6 @@ float rand2;
     tempFactor = exp(   -Sqr(  ( NowTemp - MIDTEMP ) / 10.  )   );
     precipFactor = exp(   -Sqr(  ( NowPrecip - MIDPRECIP ) / 10.  )   );
 
-    // watcher second
 
    rand1 =  Ranf( &seed, -RANDOM_TEMP, RANDOM_TEMP );
     NowTemp = temp +rand1;
@@ -165,13 +158,6 @@ float rand2;
 
 int main()
 {
-
-
-
-    
-    
-    // compute a temporary next-value for this quantity
-    // based on the current state of the simulation:
     fprintf(stderr, "rand1,rand2,rabbits,wolves,height, prec, temp\n");
     seq();
     
