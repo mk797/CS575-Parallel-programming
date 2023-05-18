@@ -52,7 +52,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "NonsimdMul %10.2lf\t", megaMults );
+	fprintf( stderr, "NonsimdMul %10.2lf,", megaMults );
 	double mmn = megaMults;
 
 
