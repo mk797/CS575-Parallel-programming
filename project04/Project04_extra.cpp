@@ -46,6 +46,8 @@ main( int argc, char *argv[ ] )
 
 
 	fprintf( stderr, "%12d,", ARRAYSIZE );
+    fprintf( stderr, "%12d,", NUMT );
+
 
 	double maxPerformance = 0.;
 	for( int t = 0; t < NUMTRIES; t++ )
@@ -58,7 +60,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf,", megaMults );
+	// fprintf( stderr, "%10.2lf,", megaMults );
 	double mmn = megaMults;
 
 
@@ -73,7 +75,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf,", megaMults );
+	// fprintf( stderr, "%10.2lf,", megaMults );
 	double mms = megaMults;
 	double speedup = mms/mmn;
 	fprintf( stderr, "%6.2lf,", speedup );
@@ -91,7 +93,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf,", megaMultAdds );
+	// fprintf( stderr, "%10.2lf,", megaMultAdds );
 	mmn = megaMultAdds;
 	//fprintf( stderr, "[ last elemt of C after non simdsum %8.1f  ]\n", C[ARRAYSIZE-1]);
 
@@ -107,7 +109,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf,", megaMultAdds );
+	// fprintf( stderr, "%10.2lf,", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
 	fprintf( stderr, "%6.2lf\n", speedup );
