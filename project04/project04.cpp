@@ -39,7 +39,7 @@ main( int argc, char *argv[ ] )
 		B[i] = sqrtf( (float)(i+1) );
 	}
 
-	fprintf( stderr, "%12d\t", ARRAYSIZE );
+	fprintf( stderr, "%12d,", ARRAYSIZE );
 
 	double maxPerformance = 0.;
 	for( int t = 0; t < NUMTRIES; t++ )
@@ -67,10 +67,10 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "SimdMul %10.2lf\t", megaMults );
+	fprintf( stderr, "SimdMul %10.2lf,", megaMults );
 	double mms = megaMults;
 	double speedup = mms/mmn;
-	fprintf( stderr, "(%6.2lf)\t", speedup );
+	fprintf( stderr, "%6.2lf,", speedup );
 
 
 	maxPerformance = 0.;
@@ -85,7 +85,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "NonSimdmulSum %10.2lf\t", megaMultAdds );
+	fprintf( stderr, "NonSimdmulSum %10.2lf,", megaMultAdds );
 	mmn = megaMultAdds;
 	//fprintf( stderr, "[ last elemt of C after non simdsum %8.1f  ]\n", C[ARRAYSIZE-1]);
 
@@ -101,10 +101,10 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "SimdmulSum %10.2lf\t", megaMultAdds );
+	fprintf( stderr, "SimdmulSum %10.2lf,", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
-	fprintf( stderr, "(%6.2lf)\n", speedup );
+	fprintf( stderr, "%6.2lf,", speedup );
 	//fprintf( stderr, "[ %8.1f , %8.1f , %8.1f ]\n", C[ARRAYSIZE-1], sumn, sums );
 
 	return 0;
