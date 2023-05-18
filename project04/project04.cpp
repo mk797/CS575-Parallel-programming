@@ -33,8 +33,6 @@ float	NonSimdMulSum( float *, float *, int );
 int
 main( int argc, char *argv[ ] )
 {
-	fprintf(stderr,"Arraysize,NonsimdMul,SimdMul,performanceMul,NonSimdmulSum,SimdmulSum,Performance_MulSUm");
-
 	for( int i = 0; i < ARRAYSIZE; i++ )
 	{
 		A[i] = sqrtf( (float)(i+1) );
