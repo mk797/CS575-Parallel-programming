@@ -104,7 +104,7 @@ main( int argc, char *argv[ ] )
 	fprintf( stderr, "SimdmulSum %10.2lf,", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
-	fprintf( stderr, "%6.2lf,", speedup );
+	fprintf( stderr, "%6.2lf\n", speedup );
 	//fprintf( stderr, "[ %8.1f , %8.1f , %8.1f ]\n", C[ARRAYSIZE-1], sumn, sums );
 
 	return 0;
