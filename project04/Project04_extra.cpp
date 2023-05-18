@@ -194,7 +194,7 @@ SimdMulSum( float *a, float *b, int len )
 		"movups	 (%rdx), %xmm2\n\t"		// 4 copies of 0. in xmm2
 	);
 
-    #pragma omp paralle for default(none) 
+    #pragma omp paralle for default(none)
 	for( int i = 0; i < limit; i += SSE_WIDTH )
 	{
 		__asm
@@ -208,6 +208,7 @@ SimdMulSum( float *a, float *b, int len )
 			"addq $16, %rcx\n\t"
 		);
 	}
+    
 
 	__asm
 	(
@@ -215,7 +216,7 @@ SimdMulSum( float *a, float *b, int len )
 		"movups	 %xmm2, (%rdx)\n\t"	// copy the sums back to sum[ ]
 	);
 
-     #pragma omp paralle for default(none)
+     #pragma omp paralle for default(none) reduction(+:sum)
 	for( int i = limit; i < len; i++ )
 	{
 		sum[0] += a[i] * b[i];
