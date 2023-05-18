@@ -20,7 +20,7 @@
 #endif
 
 #ifndef NUMT
-#define NUMT	4
+#define NUMT	1
 #endif
 
 ALIGNED float A[ARRAYSIZE];
@@ -122,7 +122,6 @@ main( int argc, char *argv[ ] )
 void
 NonSimdMul( float *A, float *B, float *C, int n )
 {
-    #pragma omp paralle for default(none) private(i) shared(C,A,B)
 	for(int i=0;i<n;i++)
     {
         C[i]=A[i]*B[i];
@@ -134,7 +133,6 @@ NonSimdMulSum( float *A, float *B, int n )
 {
  
     float sum=0.;
-    #pragma omp paralle for default(none) private(i) shared(A,B) reduction(+:sum)
 
 	for(int i=0;i<n;i++)
     {
@@ -171,6 +169,7 @@ SimdMul( float *a, float *b,   float *c,   int len )
 			"addq $16, %rdx\n\t"
 		);
 	}
+
      #pragma omp paralle for default(none) 
 	for( int i = limit; i < len; i++ )
 	{
@@ -216,7 +215,7 @@ SimdMulSum( float *a, float *b, int len )
 		"movups	 %xmm2, (%rdx)\n\t"	// copy the sums back to sum[ ]
 	);
 
-     #pragma omp paralle for default(none) 
+     #pragma omp paralle for default(none)
 	for( int i = limit; i < len; i++ )
 	{
 		sum[0] += a[i] * b[i];
